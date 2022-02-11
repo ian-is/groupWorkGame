@@ -1,11 +1,9 @@
 package com.example.groupworkgame;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.scene.canvas.*;
@@ -22,17 +20,7 @@ public class HelloApplication extends Application {
 //        GraphicsContext gc = canvas.getGraphicsContext2D();
 //        gc.
 
-
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-
-                controller.move(event);
-            }
-
-
-        });
-
+        scene.setOnKeyPressed(controller::move);
         stage.setScene(scene);
         stage.show();
     }
