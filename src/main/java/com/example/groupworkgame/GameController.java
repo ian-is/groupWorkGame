@@ -3,6 +3,7 @@ package com.example.groupworkgame;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 
@@ -15,11 +16,18 @@ public class GameController {
     private ImageView playerSprite;
     @FXML
     private AnchorPane screen;
-    public double y;
     @FXML
     public ArrayList<ImageView> objects = new ArrayList<>();
+    @FXML
     public ArrayList<ImageView> backgrounds = new ArrayList<>();
 
+    public double playerY;
+    public int gameSpeed = 5;
+
+
+
+
+    //put objects in correct positions at the start of the program
     public void initialiseObjects() {
         playerSprite.setX(900);
         for (int i = 0; i < objects.size(); i++) {
@@ -29,32 +37,64 @@ public class GameController {
         background2.setX(1919);
     }
 
+
+
+
+    //player movement logic
     public void movePlayer(float velY, float rotY) {
-        y -= velY;
-        playerSprite.setY(y);
+        playerY -= velY;
+        playerSprite.setY(playerY);
         playerSprite.setRotate(rotY);
 
     }
 
+    public Pair<Float, Float> updatePlayerPos(boolean up, float velY, float rotY){
+
+        if (playerY - 2 * velY >= 0 && playerY - 2 * velY < 1020) {
+            if (up && velY + 0.30 < 12) velY += 0.30;
+            if (!up && velY - 0.17 > -10) velY -= 0.17;
+            rotY = 4 * -velY;
+        }
+        if (playerY - 2 * velY < 0) {
+            velY = 0;
+
+        }
+        if (playerY - 2 * velY > 1020) {
+            velY = 0;
+        }
+        movePlayer(velY, rotY);
+
+        return new Pair<Float, Float>(velY, rotY);
+    }
+
+
+
+
+    //move objects across the screen
     public void moveObjects() {
         for (int i = 0; i < objects.size(); i++) {
             if (isOnScreen(objects.get(i), screen)) {
-                objects.get(i).setX(objects.get(i).getX() - 5);
+                objects.get(i).setX(objects.get(i).getX() - gameSpeed);
             }
         }
     }
 
+    //makes sure background is visible and cycles them
     public void cycleBackground() {
         for (int i = 0; i < backgrounds.size(); i++) {
             if (!isOnScreen(backgrounds.get(i), screen)) {
                 backgrounds.get(i).setX(1919);
             } else {
-                backgrounds.get(i).setX(backgrounds.get(i).getX() - 5);
+                backgrounds.get(i).setX(backgrounds.get(i).getX() - gameSpeed);
             }
         }
     }
 
-    public void createTopLine() {
+
+
+
+    //code used to create new objects at the top or bottom of screen
+    public void createTopObject() {
         for (int i = 0; i < objects.size(); i++) {
             if (!isOnScreen(objects.get(i), screen)) {
                 objects.get(i).setX(1919);
@@ -65,7 +105,7 @@ public class GameController {
         }
     }
 
-    public void createBottomLine() {
+    public void createBottomObject() {
         for (int i = 0; i < objects.size(); i++) {
             if (!isOnScreen(objects.get(i), screen)) {
                 objects.get(i).setX(1919);
@@ -76,6 +116,10 @@ public class GameController {
         }
     }
 
+
+
+
+    //checks if player is colliding with any objects
     public boolean checkCollisions() {
         for (int i = 0; i < objects.size(); i++) {
             if (isOnScreen(objects.get(i), screen)) {
@@ -87,6 +131,10 @@ public class GameController {
         return false;
     }
 
+
+    //collision logic
+
+    //checks object on object collision
     public boolean collidesWith(ImageView one, ImageView two) {
         return one.getX() < two.getX() + two.getFitWidth() &&
                 one.getX() + one.getFitWidth() > two.getX() &&
@@ -94,6 +142,7 @@ public class GameController {
                 one.getFitHeight() + one.getY() > two.getY();
     }
 
+    //checks if an object is on screen
     public boolean isOnScreen(ImageView one, AnchorPane two) {
         return one.getX() < two.getPrefWidth() &&
                 one.getX() + one.getFitWidth() > 0 &&

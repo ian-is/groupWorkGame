@@ -7,67 +7,58 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.IOException;
 
 public class Game extends Application {
 
     Player player = new Player(false, 0, 0, false);
+
     int counter;
     int score;
 
+    public void initialiseArrayLists(Parent root, GameController controller){
 
-    @Override
-    public void start(Stage stage) throws IOException {
-
-        FXMLLoader fxmlLoader = new FXMLLoader(Game.class.getResource("game-scene.fxml"));
-
-        Parent root = fxmlLoader.load();
-        GameController controller = fxmlLoader.getController();
-        Scene scene = new Scene(root);
-        stage.setFullScreen(false);
-
-        scene.setOnMousePressed(mouseEvent -> player.setUp(mouseEvent.isPrimaryButtonDown()));
-
-        scene.setOnMouseReleased(mouseEvent -> player.setUp(false));
-
-        stage.setScene(scene);
-
+        //initialise background arraylist
         for (int i = 0; i < root.getChildrenUnmodifiable().size(); i++) {
             if (root.getChildrenUnmodifiable().get(i).getId().contains("background")) {
                 controller.backgrounds.add((ImageView) root.getChildrenUnmodifiable().get(i));
             }
         }
 
+        //initialise objects arraylist
         for (int i = 0; i < root.getChildrenUnmodifiable().size(); i++) {
             if (root.getChildrenUnmodifiable().get(i).getId().contains("obj")) {
                 controller.objects.add((ImageView) root.getChildrenUnmodifiable().get(i));
             }
         }
+    }
 
+
+    @Override
+    public void start(Stage stage) throws IOException {
+
+        //initialise stage & objects
+        FXMLLoader fxmlLoader = new FXMLLoader(Game.class.getResource("game-scene.fxml"));
+        Parent root = fxmlLoader.load();
+        GameController controller = fxmlLoader.getController();
+        Scene scene = new Scene(root);
+        stage.setFullScreen(false);
+        scene.setOnMousePressed(mouseEvent -> player.setUp(mouseEvent.isPrimaryButtonDown()));
+        scene.setOnMouseReleased(mouseEvent -> player.setUp(false));
+        stage.setScene(scene);
+        initialiseArrayLists(root, controller);
         controller.initialiseObjects();
-
         stage.show();
 
-
+        //game loop
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 if (!player.isDead) {
-                    if (counter % 5 == 0) {
-                        score++;
-                    }
-                    switch (counter) {
-                        case 50 -> controller.createTopLine();
-                        case 100 -> {
-                            controller.createBottomLine();
-                            counter = 0;
-                        }
-                    }
-                    counter++;
-                    controller.cycleBackground();
-                    controller.moveObjects();
-                    updatePlayerPos(player.isUp(), player.getVelY(), player.getRotY());
+                    counter = updateCounter(counter);
+                    updateEntities();
                     if (controller.checkCollisions()) {
                         System.out.println("you got: " + score);
                         player.setDead(true);
@@ -75,24 +66,37 @@ public class Game extends Application {
                 }
             }
 
-            private void updatePlayerPos(boolean up, float velY, float rotY) {
+            //updates the counter variable
+            public int updateCounter(int counter){
+                if (counter % 5 == 0) {
+                    score++;
+                }
+                switch (counter) {
 
-                if (controller.y - 2 * velY >= 0 && controller.y - 2 * velY < 1020) {
-                    if (up && velY + 0.30 < 12) velY += 0.30;
-                    if (!up && velY - 0.17 > -10) velY -= 0.17;
-                    rotY = 4 * -velY;
-                }
-                if (controller.y - 2 * velY < 0) {
-                    velY = 0;
+                    //creates an object at the top of the screen every 100 counter ticks, offset by 50 ticks
+                    case 50 -> controller.createTopObject();
 
+                    //creates an object at the bottom of screen, resets counter when it = 100
+                    case 100 -> {
+                        controller.createBottomObject();
+                        counter = 0;
+                    }
                 }
-                if (controller.y - 2 * velY > 1020) {
-                    velY = 0;
-                }
-                controller.movePlayer(velY, rotY);
-                player.setRotY(rotY);
-                player.setVelY(velY);
+
+                //increments counter
+                counter++;
+                return counter;
             }
+
+            //updates all the entities on screen
+            public void updateEntities(){
+                controller.cycleBackground();
+                controller.moveObjects();
+                Pair<Float, Float> newPlayerPos = controller.updatePlayerPos(player.isUp(), player.getVelY(), player.getRotY());
+                player.setVelY(newPlayerPos.getKey());
+                player.setRotY(newPlayerPos.getValue());
+            }
+
         };
         timer.start();
     }
