@@ -3,7 +3,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id ="screen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080" prefWidth="1920" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.groupworkgame.GameController">
+<AnchorPane fx:id="scene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080" prefWidth="1920" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.groupworkgame.GameController">
    <children>
       <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" pickOnBounds="true" preserveRatio="false">
          <image>
@@ -17,39 +17,39 @@
          <image>
             <Image url="@ship.png" />
          </image></ImageView>
-      <ImageView fx:id ="obj1"  fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
+      <ImageView fx:id="obj1" fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@objectTexture.png" />
          </image></ImageView>
-      <ImageView fx:id ="obj2"  fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
+      <ImageView fx:id="obj2" fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@objectTexture.png" />
          </image></ImageView>
-      <ImageView fx:id ="obj3"  fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
+      <ImageView fx:id="obj3" fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@objectTexture.png" />
          </image></ImageView>
-      <ImageView fx:id ="obj4"  fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
+      <ImageView fx:id="obj4" fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@objectTexture.png" />
          </image></ImageView>
-      <ImageView fx:id ="obj5"  fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
+      <ImageView fx:id="obj5" fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@objectTexture.png" />
          </image></ImageView>
-      <ImageView fx:id ="obj7"  fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
+      <ImageView fx:id="obj7" fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@objectTexture.png" />
          </image></ImageView>
-      <ImageView fx:id ="obj8"  fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
+      <ImageView fx:id="obj8" fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@objectTexture.png" />
          </image></ImageView>
-      <ImageView fx:id ="obj9"  fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
+      <ImageView fx:id="obj9" fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@objectTexture.png" />
          </image></ImageView>
-      <ImageView fx:id ="obj10"  fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
+      <ImageView fx:id="obj10" fitHeight="400" fitWidth="100" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@objectTexture.png" />
          </image></ImageView>

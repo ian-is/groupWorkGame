@@ -15,7 +15,7 @@ public class GameController {
     @FXML
     private ImageView playerSprite;
     @FXML
-    private AnchorPane screen;
+    private AnchorPane scene;
     @FXML
     public ArrayList<ImageView> objects = new ArrayList<>();
     @FXML
@@ -30,8 +30,8 @@ public class GameController {
     //put objects in correct positions at the start of the program
     public void initialiseObjects() {
         playerSprite.setX(900);
-        for (int i = 0; i < objects.size(); i++) {
-            objects.get(i).setX(-500);
+        for (ImageView object : objects) {
+            object.setX(-500);
         }
         background.setX(0);
         background2.setX(1919);
@@ -64,7 +64,7 @@ public class GameController {
         }
         movePlayer(velY, rotY);
 
-        return new Pair<Float, Float>(velY, rotY);
+        return new Pair<>(velY, rotY);
     }
 
 
@@ -72,20 +72,20 @@ public class GameController {
 
     //move objects across the screen
     public void moveObjects() {
-        for (int i = 0; i < objects.size(); i++) {
-            if (isOnScreen(objects.get(i), screen)) {
-                objects.get(i).setX(objects.get(i).getX() - gameSpeed);
+        for (ImageView object : objects) {
+            if (isOnScreen(object, scene)) {
+                object.setX(object.getX() - gameSpeed);
             }
         }
     }
 
     //makes sure background is visible and cycles them
     public void cycleBackground() {
-        for (int i = 0; i < backgrounds.size(); i++) {
-            if (!isOnScreen(backgrounds.get(i), screen)) {
-                backgrounds.get(i).setX(1919);
+        for (ImageView imageView : backgrounds) {
+            if (!isOnScreen(imageView, scene)) {
+                imageView.setX(1919);
             } else {
-                backgrounds.get(i).setX(backgrounds.get(i).getX() - gameSpeed);
+                imageView.setX(imageView.getX() - gameSpeed);
             }
         }
     }
@@ -95,22 +95,22 @@ public class GameController {
 
     //code used to create new objects at the top or bottom of screen
     public void createTopObject() {
-        for (int i = 0; i < objects.size(); i++) {
-            if (!isOnScreen(objects.get(i), screen)) {
-                objects.get(i).setX(1919);
-                objects.get(i).setY(0);
-                objects.get(i).setRotate(0);
+        for (ImageView object : objects) {
+            if (!isOnScreen(object, scene)) {
+                object.setX(1919);
+                object.setY(0);
+                object.setRotate(0);
                 return;
             }
         }
     }
 
     public void createBottomObject() {
-        for (int i = 0; i < objects.size(); i++) {
-            if (!isOnScreen(objects.get(i), screen)) {
-                objects.get(i).setX(1919);
-                objects.get(i).setY(screen.getPrefHeight() - objects.get(i).getFitHeight());
-                objects.get(i).setRotate(180);
+        for (ImageView object : objects) {
+            if (!isOnScreen(object, scene)) {
+                object.setX(1919);
+                object.setY(scene.getPrefHeight() - object.getFitHeight());
+                object.setRotate(180);
                 return;
             }
         }
@@ -121,9 +121,9 @@ public class GameController {
 
     //checks if player is colliding with any objects
     public boolean checkCollisions() {
-        for (int i = 0; i < objects.size(); i++) {
-            if (isOnScreen(objects.get(i), screen)) {
-                if (collidesWith(playerSprite, objects.get(i))) {
+        for (ImageView object : objects) {
+            if (isOnScreen(object, scene)) {
+                if (collidesWith(playerSprite, object)) {
                     return true;
                 }
             }
