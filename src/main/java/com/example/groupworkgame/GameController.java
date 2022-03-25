@@ -20,11 +20,9 @@ public class GameController {
     public ArrayList<ImageView> objects = new ArrayList<>();
     @FXML
     public ArrayList<ImageView> backgrounds = new ArrayList<>();
-
+    
     public double playerY;
     public int gameSpeed = 5;
-
-
 
 
     //put objects in correct positions at the start of the program
@@ -38,8 +36,6 @@ public class GameController {
     }
 
 
-
-
     //player movement logic
     public void movePlayer(float velY, float rotY) {
         playerY -= velY;
@@ -48,7 +44,7 @@ public class GameController {
 
     }
 
-    public Pair<Float, Float> updatePlayerPos(boolean up, float velY, float rotY){
+    public Pair<Float, Float> updatePlayerPos(boolean up, float velY, float rotY) {
 
         if (playerY - 2 * velY >= 0 && playerY - 2 * velY < 1020) {
             if (up && velY + 0.30 < 12) velY += 0.30;
@@ -66,8 +62,6 @@ public class GameController {
 
         return new Pair<>(velY, rotY);
     }
-
-
 
 
     //move objects across the screen
@@ -89,8 +83,6 @@ public class GameController {
             }
         }
     }
-
-
 
 
     //code used to create new objects at the top or bottom of screen
@@ -115,8 +107,6 @@ public class GameController {
             }
         }
     }
-
-
 
 
     //checks if player is colliding with any objects
@@ -149,6 +139,7 @@ public class GameController {
                 one.getY() < two.getPrefHeight() &&
                 one.getFitHeight() + one.getY() > 0;
     }
+
 
 }
 

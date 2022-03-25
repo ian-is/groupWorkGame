@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-
 import java.io.IOException;
 
 public class Game extends Application {
@@ -100,7 +99,6 @@ public class Game extends Application {
         };
         timer.start();
     }
-
     public static void main(String[] args) {
         launch();
     }
