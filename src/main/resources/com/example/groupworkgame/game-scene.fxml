@@ -5,11 +5,11 @@
 
 <AnchorPane fx:id="scene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080" prefWidth="1920" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.groupworkgame.GameController">
    <children>
-      <ImageView fx:id="background" fitHeight="1080" fitWidth="1920" pickOnBounds="true" preserveRatio="false">
+      <ImageView fx:id="background" fitHeight="1100" fitWidth="1930" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@background.jpg" />
          </image></ImageView>
-      <ImageView fx:id="background2" fitHeight="1080" fitWidth="1920" pickOnBounds="true" preserveRatio="false">
+      <ImageView fx:id="background2" fitHeight="1100" fitWidth="1930" pickOnBounds="true" preserveRatio="false">
          <image>
             <Image url="@background.jpg" />
          </image></ImageView>
